@@ -3,11 +3,13 @@ package br.com.dio.academia.interfaces.service;
 import java.util.List;
 import br.com.dio.academia.entity.Aluno;
 import br.com.dio.academia.entity.AlunoForm;
+import br.com.dio.academia.entity.AvaliacaoFisica;
 
 public interface IAlunoService {
 	Aluno create(AlunoForm form);
 	Aluno get(Long id);
-	List<Aluno> getAll();
+	List<Aluno> getAll(String dataDeNascimento);
 	Aluno update(Long id, AlunoForm form);
 	void delete(Long id);
+	List<AvaliacaoFisica> getAvaliacoesFisicas(Long id);
 }
