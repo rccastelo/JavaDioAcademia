@@ -35,16 +35,32 @@ public class MatriculaService implements IMatriculaService {
     }
 
     @Override
+    public List<Matricula> getAlunoId(Long aluno_id) {
+        return matriculaRepository.findMatriculasAlunoId(aluno_id);
+    }
+
+    @Override
     public List<Matricula> getAll(String bairro) {
         if(bairro == null){
             return matriculaRepository.findAll();
         }else{
-            return matriculaRepository.findAlunosMatriculadosBairro(bairro);
+            return matriculaRepository.findMatriculasBairro(bairro);
+        }
+    }
+
+    @Override
+    public void deleteAlunoId(Long aluno_id) {
+        List<Matricula> matriculas = matriculaRepository.findMatriculasAlunoId(aluno_id);
+
+        if (matriculas != null) {
+            for (Matricula m : matriculas) {
+                matriculaRepository.deleteById(m.getId());
+            }
         }
     }
 
     @Override
     public void delete(Long id) {
-
+        matriculaRepository.deleteById(id);
     }
 }

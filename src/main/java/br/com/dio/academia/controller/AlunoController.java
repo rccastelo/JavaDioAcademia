@@ -18,9 +18,14 @@ public class AlunoController {
 	
 	@GetMapping
 	public List<Aluno> getAll(@RequestParam(value = "dataDeNascimento", required = false) String dataDeNascimento) {
-		return service.getAll(dataDeNascimento);
+		return service.getDataDeNascimento(dataDeNascimento);
 	}
-	
+
+	@GetMapping("/nome/{nome}")
+	public List<Aluno> get(@PathVariable String nome) {
+		return service.getNome(nome);
+	}
+
 	@PostMapping
 	public Aluno create(@Valid @RequestBody AlunoForm form) {
 		return service.create(form);
@@ -34,5 +39,15 @@ public class AlunoController {
 	@GetMapping("/{id}")
 	public Aluno get(@PathVariable Long id) {
 		return service.get(id);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		service.delete(id);
+	}
+
+	@PutMapping("/{id}")
+	public Aluno update(@PathVariable Long id, @Valid @RequestBody AlunoForm form) {
+		return service.update(id, form);
 	}
 }

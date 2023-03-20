@@ -38,7 +38,12 @@ public class AlunoService implements IAlunoService {
 	}
 
 	@Override
-	public List<Aluno> getAll(String dataDeNascimento) {
+	public List<Aluno> getAll() {
+		return repository.findAll();
+	}
+
+	@Override
+	public List<Aluno> getDataDeNascimento(String dataDeNascimento) {
 		if (dataDeNascimento == null) {
 			return repository.findAll();
 		} else {
@@ -49,14 +54,33 @@ public class AlunoService implements IAlunoService {
 	}
 
 	@Override
+	public List<Aluno> getNome(String nome) {
+		if (nome == null) {
+			return repository.findAll();
+		} else {
+			return repository.findByNome(nome);
+		}
+	}
+
+	@Override
 	public Aluno update(Long id, AlunoForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		Aluno aluno = repository.getReferenceById(id);
+
+		if (aluno != null) {
+			aluno.setNome(form.getNome());
+			aluno.setCpf(form.getCpf());
+			aluno.setBairro(form.getBairro());
+			aluno.setDataDeNascimento(form.getDataDeNascimento());
+
+			repository.save(aluno);
+		}
+
+		return aluno;
 	}
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		repository.deleteById(id);
 	}
 
 	@Override

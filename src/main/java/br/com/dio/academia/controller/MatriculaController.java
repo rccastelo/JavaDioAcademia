@@ -24,4 +24,24 @@ public class MatriculaController {
     public List<Matricula> getAll(@RequestParam(value = "bairro", required = false) String bairro) {
         return service.getAll(bairro);
     }
+
+    @GetMapping("/{id}")
+    public Matricula get(@PathVariable Long id) {
+        return service.get(id);
+    }
+
+    @GetMapping("/aluno/{aluno_id}")
+    public List<Matricula> getAlunoId(@PathVariable Long aluno_id) {
+        return service.getAlunoId(aluno_id);
+    }
+
+    @DeleteMapping("/aluno/{aluno_id}")
+    public void deleteAlunoId(@PathVariable Long aluno_id) {
+        service.deleteAlunoId(aluno_id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
 }

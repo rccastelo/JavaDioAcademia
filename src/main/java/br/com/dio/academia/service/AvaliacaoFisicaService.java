@@ -3,6 +3,7 @@ package br.com.dio.academia.service;
 import br.com.dio.academia.entity.Aluno;
 import br.com.dio.academia.entity.AvaliacaoFisica;
 import br.com.dio.academia.entity.AvaliacaoFisicaForm;
+import br.com.dio.academia.entity.Matricula;
 import br.com.dio.academia.interfaces.repository.IAlunoRepository;
 import br.com.dio.academia.interfaces.repository.IAvaliacaoFisicaRepository;
 import br.com.dio.academia.interfaces.service.IAvaliacaoFisicaService;
@@ -33,7 +34,7 @@ public class AvaliacaoFisicaService implements IAvaliacaoFisicaService {
 
     @Override
     public AvaliacaoFisica get(Long id) {
-        return null;
+        return avaliacaoFisicaRepository.findById(id).get();
     }
 
     @Override
@@ -42,12 +43,23 @@ public class AvaliacaoFisicaService implements IAvaliacaoFisicaService {
     }
 
     @Override
-    public AvaliacaoFisica update(Long id, AvaliacaoFisicaForm form) {
-        return null;
+    public void delete(Long id) {
+        avaliacaoFisicaRepository.deleteById(id);
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteAlunoId(Long aluno_id) {
+        List<AvaliacaoFisica> avaliacoes = avaliacaoFisicaRepository.findAvaliacoesAlunoId(aluno_id);
 
+        if (avaliacoes != null) {
+            for (AvaliacaoFisica m : avaliacoes) {
+                avaliacaoFisicaRepository.deleteById(m.getId());
+            }
+        }
+    }
+
+    @Override
+    public List<AvaliacaoFisica> getAlunoId(Long aluno_id) {
+        return avaliacaoFisicaRepository.findAvaliacoesAlunoId(aluno_id);
     }
 }
